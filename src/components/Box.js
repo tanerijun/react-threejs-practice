@@ -1,11 +1,13 @@
 import { useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 
-export default function Box() {
+export default function Box({ rotate = false }) {
   const mesh = useRef();
 
   useFrame(() => {
-    mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
+    if (rotate) {
+      mesh.current.rotation.x = mesh.current.rotation.y += 0.01;
+    }
   });
 
   return (
