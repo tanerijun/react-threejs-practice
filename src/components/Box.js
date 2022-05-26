@@ -1,8 +1,9 @@
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import { useFrame } from '@react-three/fiber';
 
 export default function Box({ rotate = false }) {
   const mesh = useRef();
+  const [hovered, setHovered] = useState(false);
 
   useFrame(() => {
     if (rotate) {
@@ -11,9 +12,14 @@ export default function Box({ rotate = false }) {
   });
 
   return (
-    <mesh scale={2} ref={mesh}>
+    <mesh
+      scale={2}
+      ref={mesh}
+      onPointerOver={(e) => setHovered(true)}
+      onPointerOut={(e) => setHovered(false)}
+    >
       <boxGeometry />
-      <meshStandardMaterial color="blue" />
+      <meshStandardMaterial color={hovered ? 'red' : 'blue'} />
     </mesh>
   );
 }
